@@ -13,8 +13,6 @@
     "better-scroll": "^1.14.1",
     "mint-ui": "^2.2.13",
     "mockjs": "^1.0.1-beta3",
-    "sass": "^1.16.1",
-    "sass-loader": "^7.1.0",
     "swiper": "^4.4.5",
     "vue": "^2.5.20",
     "vue-loader": "^15.4.2",
@@ -34,8 +32,9 @@
     "eslint-plugin-vue": "^5.0.0-0",
     "postcss-px2rem": "^0.3.0",
     "postcss-pxtorem": "^4.0.1",
-    "style-loader": "^0.23.1"
-
+    "style-loader": "^0.23.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2"
   },
   "eslintConfig": {
     "root": true,
