@@ -95,7 +95,7 @@
                          el: '.swiper-pagination',
                      },
                  })*/
-                //界面跟新立即创建swiper对象
+                //界面更新后立即创建swiper对象
                 this.$nextTick(() => {   //一旦完成界面更新，立即调用（要写在数据更新之后）
                     // 创建一个Swiper实例对象, 来实现轮播
                     new Swiper('.swiper-container', {
@@ -108,9 +108,7 @@
             }
         },
         methods: {
-            get() {
 
-            }
         }
     }
 </script>

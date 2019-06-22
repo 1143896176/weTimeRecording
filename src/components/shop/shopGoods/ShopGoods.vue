@@ -1,8 +1,8 @@
 <template>
     <div class="goods-warp">
-        <div class="menu-wrap" >
-            <ul class="menu-list">
-                <li v-for="(good ,index) in goods" :key="index"  @click="clickMenu(index)" :class="{current:index===currentIndex}">
+        <div class="menu-wrap" ref="menuWarp" >
+            <ul class="menu-list" ref="menuU1">
+                <li v-for="(good ,index) in goods" :key="index"  @click="clickMenu(index)" :class="{current:index===currentIndex}" class="menu">
 
                     <img v-if="good.icon" class="icon" :src="good.icon" alt="">
                     <span>{{good.name}}</span>
@@ -44,21 +44,25 @@
         data(){
           return{
               scrollY:0,
-              tops:[]
+              tops:[],
+              menus:[],
+              menuWarp:Number
           }
         },
         mounted(){
+            this.getMenuWarpHeight()
             this.$store.dispatch('getShopGoods',()=>{
                 this.$nextTick(()=>{
                    this._initScroll()
                    this._initTops()
+                    this._initMenu()
                 })
             })
         },
         methods:{
             //初始化滚动条
             _initScroll(){
-               new BScroll('.menu-wrap',{
+              this.menuScroll= new BScroll('.menu-wrap',{
                     click:true //不添加不会调用click事件
                 });
                 this. foodsScroll=new BScroll('.foods-warp',{
@@ -89,12 +93,47 @@
                 this.tops=tops
                 console.log(tops)
             },
+            _initMenu(){
+                const menus=[]
+                let menu=0
+                menus.push(menu)
+                //找到所有li
+                const lis=this.$refs.menuU1.getElementsByClassName('menu')
+                Array.prototype.slice.call(lis).forEach(li=>{
+                    menu+=li.clientHeight
+                    menus.push(menu)
+                })
+                //更新数据
+                this.menus=menus
+                console.log(menus)
+            },
             clickMenu(index){
                 console.log(index)
                 //使右侧列表滑动到指定位置
                 const scrollY=this.tops[index]
                 this.scrollY=scrollY
                 this.foodsScroll.scrollTo(0,-scrollY,300)
+                const MScrollY=this.menus[index]
+                const MW=this.menuWarp/2
+                const h=this.$refs.menuU1.clientHeight
+                const i=this.menus[1]-this.menus[0]
+                if(h>MW*2&&MScrollY>MW){
+                    // const b=(h-MW*2)%i
+                    const a=(h-MW*2)/i
+                    if(MScrollY+MW<h){
+                        const b=  (h-(MScrollY+MW))/i
+                        this.menuScroll.scrollTo(0,-i*b,300)
+                        console.log("b",b)
+                    }
+
+
+                    console.log(MScrollY)
+                }
+            },
+            getMenuWarpHeight(){
+                const h=this.$refs.menuWarp
+                this.menuWarp=h.clientHeight
+                console.log(h.clientHeight)
             }
         },
         computed:{
@@ -110,8 +149,12 @@
                 })
                 //返回结果
                 return index
+            },
+            aoutScroll(){
+                const {menuWarp,currentIndex,menus}=this
 
             }
+
         }
     }
 </script>

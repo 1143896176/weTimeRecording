@@ -10,9 +10,11 @@ export const reqGeolocation = () => {
     return new Promise((resolve, reject) => {
         position.getCurrentPosition((status, result) => {
             if (status === 'complete') {
+                console.log(result)
                 resolve({
                     data: {
                         latitude: result.position.lat,
+
                         longitude: result.position.lng,
                         address: result.formattedAddress,
                     },
