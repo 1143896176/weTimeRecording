@@ -13,7 +13,7 @@
     "better-scroll": "^1.14.1",
     "mint-ui": "^2.2.13",
     "mockjs": "^1.0.1-beta3",
-    "swiper": "^4.4.5",
+    "swiper": "^6.5.1",
     "vue": "^2.5.20",
     "vue-loader": "^15.4.2",
     "vue-router": "^3.0.2",
